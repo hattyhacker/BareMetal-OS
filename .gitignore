@@ -1,3 +1,5 @@
+.*
+*.swp
 .DS_Store
-src/*
-sys/*
+src/*.swp
+sys/
