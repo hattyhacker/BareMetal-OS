@@ -1,0 +1,75 @@
+     1                                  ; Hello World Assembly Test Program (v1.0, January 27 2020)
+     2                                  ; Written by Ian Seyler
+     3                                  ;
+     4                                  ; BareMetal compile:
+     5                                  ; nasm hello.asm -o hello.app
+     6                                  
+     7                                  [BITS 64]
+     8                                  [ORG 0x0000000000200000]
+     9                                  
+    10                                  %INCLUDE "libBareMetal.asm"
+     1                              <1> ; =============================================================================
+     2                              <1> ; BareMetal -- a 64-bit OS written in Assembly for x86-64 systems
+     3                              <1> ; Copyright (C) 2008-2020 Return Infinity -- see LICENSE.TXT
+     4                              <1> ;
+     5                              <1> ; Version 1.0
+     6                              <1> ; =============================================================================
+     7                              <1> 
+     8                              <1> 
+     9                              <1> b_input			equ 0x0000000000100010	; Scans keyboard for input. OUT: AL = 0 if no key pressed, otherwise ASCII code
+    10                              <1> b_output		equ 0x0000000000100018	; Displays a number of characters. IN: RSI = message location, RCX = number of characters
+    11                              <1> 
+    12                              <1> b_ethernet_tx		equ 0x0000000000100020	; Transmit a packet via Ethernet. IN: RSI = Memory location where data is stored, RDI = Pointer to 48 bit destination address, BX = Type of packet (If set to 0 then the EtherTyp
+    13                              <1> b_ethernet_rx		equ 0x0000000000100028	; Polls the Ethernet card for received data. IN: RDI = Memory location where packet will be stored. OUT: RCX = Length of packet
+    14                              <1> 
+    15                              <1> b_disk_read		equ 0x0000000000100030	; Read from the disk.
+    16                              <1> b_disk_write		equ 0x0000000000100038	; Write to the disk.
+    17                              <1> 
+    18                              <1> b_config		equ 0x0000000000100040	; View/modify configuration. IN: RCX = Function, RAX = Variable 1, RDX = Variable 2. OUT: RAX = Result
+    19                              <1> b_system		equ 0x0000000000100048	; Call a system function. IN: RCX = Function, RAX = Variable 1, RDX = Variable 2. Out: RAX = Result 1, RDX = Result 2
+    20                              <1> 
+    21                              <1> 
+    22                              <1> ; Index for b_config calls
+    23                              <1> timecounter		equ 0
+    24                              <1> smp_get_id		equ 1
+    25                              <1> networkcallback_get	equ 3
+    26                              <1> networkcallback_set	equ 4
+    27                              <1> clockcallback_get	equ 5
+    28                              <1> clockcallback_set	equ 6
+    29                              <1> mac			equ 30
+    30                              <1> pci_read		equ 0x40
+    31                              <1> pci_write		equ 0x41
+    32                              <1> stdout_set		equ 0x42
+    33                              <1> stdout_get		equ 0x43
+    34                              <1> drive_id		equ 0x50
+    35                              <1> 
+    36                              <1> 
+    37                              <1> ; Index for b_system calls
+    38                              <1> smp_lock		equ 2
+    39                              <1> smp_unlock		equ 3
+    40                              <1> debug_dump_mem		equ 4
+    41                              <1> debug_dump_rax		equ 5
+    42                              <1> get_argc		equ 6
+    43                              <1> get_argv		equ 7
+    44                              <1> delay			equ 6
+    45                              <1> ethernet_status		equ 7
+    46                              <1> mem_get_free		equ 8
+    47                              <1> smp_numcores		equ 9
+    48                              <1> smp_set			equ 10
+    49                              <1> reset			equ 256
+    50                              <1> 
+    51                              <1> ; =============================================================================
+    52                              <1> ; EOF
+    11                                  
+    12                                  start:					; Start of program label
+    13                                  
+    14 00000000 48BE-                   	mov rsi, hello_message		; Load RSI with memory address of string
+    14 00000002 [1700000000000000] 
+    15 0000000A B90E000000              	mov rcx, 14			; Output 14 characters
+    16 0000000F FF142518001000          	call [b_output]			; Print the string that RSI points to
+    17                                  
+    18 00000016 C3                      ret					; Return to OS
+    19                                  
+    20 00000017 48656C6C6F2C20776F-     hello_message: db 'Hello, world!', 13, 0
+    20 00000020 726C64210D00       
+    21 00000026 48690D00                hi: db 'Hi',13,0
