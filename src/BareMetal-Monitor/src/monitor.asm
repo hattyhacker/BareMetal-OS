@@ -51,6 +51,10 @@ start:
 	mul ecx
 	mov dword [Screen_Row_2], eax
 
+	; Start off with the default font
+	mov rax, 0
+	call select_font
+
 	; Set foreground/background color
 	mov eax, 0x00111111
 	mov [FG_Color], eax
@@ -154,10 +158,27 @@ poll:
 	call string_compare
 	jc help
 
+	mov rsi, command_font_0
+	call string_compare
+	jc load_font_0
+	mov rsi, command_font_1
+	call string_compare
+	jc load_font_1
+
+
 	cmp rcx, 0			; If no characters were entered show prompt again
 	je poll
 	mov rsi, message_unknown
 	call output_err
+	jmp poll
+
+load_font_0:
+	mov rax, 0
+	call select_font
+	jmp poll
+load_font_1:
+	mov rax, 1
+	call select_font
 	jmp poll
 
 exec:
@@ -291,6 +312,8 @@ message_load:		db 'Enter file number: ', 0
 message_unknown:	db 'Unknown command', 13, 0
 message_help:		db 'Available commands:', 13, ' dir  - Show programs currently on disk', 13, ' load - Load a program to memory (you will be prompted for the program number)', 13, ' exec - Run the program currently in memory', 13, ' ver  - Show the system version', 13, 0
 command_exec:		db 'exec', 0
+command_font_0:		db 'font 0',0
+command_font_1:		db 'font 1',0
 command_dir:		db 'dir', 0
 command_ls:		db 'ls', 0
 command_ver:		db 'ver', 0
@@ -590,7 +613,8 @@ glyph:
 	sub rax, 0x20
 	mov ecx, 12			; Font height
 	mul ecx
-	mov rsi, font_bold_data
+	mov rsi, font_selected_data ; todo
+	;mov rsi, font_bold_data
 	add rsi, rax			; add offset to correct glyph
 
 ; Calculate pixel co-ordinates for character
@@ -932,9 +956,59 @@ string_to_int_invalid:
 ; -----------------------------------------------------------------------------
 
 
-; Todo - Make multiple fonts selectable
-;%include 'font.inc'
+; -----------------------------------------------------------------------------
+;  IN:	RAX = Font number to use
+; OUT:	All registers preserved
+; Adapted from http://www.cs.usfca.edu/~cruse/cs210s09/uint2rax.s
+select_font:
+	push rax
+	push rbx
+	push rcx
+
+	cmp rax, 0
+	je select_font_default
+
+	cmp rax, 1
+	je select_font_hattyhacking
+
+	jmp select_font_x
+
+	select_font_default:
+		mov rax, font_data
+		jmp font_load_mem
+		jmp select_font_x
+
+	select_font_hattyhacking:
+		mov rax, font_bold_data
+		jmp font_load_mem
+		jmp select_font_x
+
+	font_load_mem:
+		mov rcx, 0				; Offset counter to get char data
+
+		font_load_mem_loop:
+		cmp rcx, 1154				; If reached end of (6x12) font data:
+		je select_font_x			;  get outta here, font loaded
+
+		mov rbx, [rax + rcx]			; Gets glyph byte dat
+		mov[font_selected_data + rcx], rbx	; Loads glyph byte to global font address
+
+		add rcx, 1				; Increment for the next byte addr
+		jmp font_load_mem_loop			; Repeat process
+
+	select_font_x:
+	pop rcx
+	pop rbx
+	pop rax
+	ret
+; -----------------------------------------------------------------------------
+
+
+; -----------------------------------------------------------------------------
+%include 'font.inc'
 %include 'font_bold.inc'
+
+font_selected_data: times 1154 db 0
 
 temp_string1: times 50 db 0
 temp_string2: times 50 db 0
