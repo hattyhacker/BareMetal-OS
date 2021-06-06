@@ -1,6 +1,6 @@
-# BareMetal Monitor
+# BareNaked Monitor
 
-A simple command line interface for the BareMetal kernel.
+A simple command line interface for the BareNaked kernel.
 
 
 ## Prerequisites
@@ -17,6 +17,9 @@ In Debian-based Linux distros this can be completed with the following command:
 
 - `dir`, `ls`: Show BMFS directory contents
 - `exec`: Executes the current program loaded into memory
+- `font $`: Change font based on the index number "`$`" given
+ - `0`: The default, original font
+ - `1`: A blocky, bold font
 - `help`: Shows a list of available commands
 - `load`: Loads a program into memory for execution
 - `uname`, `ver`: Prints the OS version info

@@ -1,6 +1,6 @@
-# BareMetal Demo
+# BareNaked Demo
 
-Various test/example programs for BareMetal OS.
+Various test/example programs for BareNaked OS.
 
 
 ## Prerequisites
