@@ -6,10 +6,10 @@ dd if=/dev/zero of=disk.img count=128 bs=1048576 > /dev/null 2>&1
 dd if=/dev/zero of=null.bin count=8 bs=1 > /dev/null 2>&1
 cd ..
 
-cd src/BareMetal-Monitor
+cd src/BareNaked-Monitor
 ./build.sh
 cd ../..
-cd src/BareMetal-Demo
+cd src/BareNaked-Demo
 ./build.sh
 cd ../..
 

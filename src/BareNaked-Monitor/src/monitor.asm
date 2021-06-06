@@ -69,9 +69,9 @@ start:
 	stosq
 
 	; Overwrites b_output to print 0-terminated strings (currently overwrites the above)
-	mov rax, output
-	mov rdi, 0x10018 ; Todo - Have own address (instead of b_output's) for backwards compatibility?
-	stosq
+	;mov rax, output
+	;mov rdi, 0x10018 ; Todo - Have own address (instead of b_output's) for backwards compatibility?
+	;stosq
 
 	; Todo -  Move cursor to bottom of screen, still wanna do this?
 	;mov ax, [Screen_Rows]

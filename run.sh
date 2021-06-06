@@ -5,7 +5,7 @@ cmd=( qemu-system-x86_64
 	-machine q35
 	-cpu core2duo
 # Window title in graphics mode
-	-name "BareMetal OS"
+	-name "BareNaked OS"
 # Boot a multiboot kernel file
 #	-kernel ./boot.bin
 # Enable a supported NIC

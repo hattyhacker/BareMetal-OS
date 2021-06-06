@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd src/BareMetal-Demo/bin
+cd src/BareNaked-Demo/bin
 cp *.app ../../../sys/
 cd ../../../sys/
 ./bmfs disk.img create hello.app 2

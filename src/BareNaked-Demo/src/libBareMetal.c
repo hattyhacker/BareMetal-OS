@@ -11,7 +11,6 @@ unsigned char b_input(void) {
 	asm volatile ("call *0x00100010" : "=a" (chr));
 	return chr;
 }
-
 void b_output(const char *str, unsigned long nbr) {
 	asm volatile ("call *0x00100018" : : "S"(str), "c"(nbr));
 }

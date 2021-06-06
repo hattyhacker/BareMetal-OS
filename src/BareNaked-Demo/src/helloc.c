@@ -8,6 +8,7 @@
 
 int main(void)
 {
+	// TODO
 	b_output("Hey there!\n", 14);
 	print("Hey there!\n");
 	return 0;
