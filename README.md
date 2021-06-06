@@ -1,4 +1,4 @@
-# ![](doc/icon.png) BareNaked OS
+# ![BareNaked OS](doc/icon.png)
 
 > *A fork of BareMetal OS, au naturale.*
 
