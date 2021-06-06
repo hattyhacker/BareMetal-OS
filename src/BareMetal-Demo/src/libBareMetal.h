@@ -11,8 +11,8 @@
 
 // Input/Output
 unsigned char b_input(void);
-//void b_output(const char *str, unsigned long nbr);
-void b_output(const char *str);
+void b_output(const char *str, unsigned long nbr);
+void print(const char *str);
 
 // Network
 void b_ethernet_tx(void *mem, unsigned long len, unsigned long iid);

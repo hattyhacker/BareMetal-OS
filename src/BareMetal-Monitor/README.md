@@ -9,9 +9,17 @@ The scripts in this repo depend on a Debian-based Linux system like [Ubuntu](htt
 
 - [NASM](https://nasm.us) - Assembly compiler to build the loader and kernel, as well as the apps written in Assembly.
 
-In Linux this can be completed with the following command:
+In Debian-based Linux distros this can be completed with the following command:
 
 	sudo apt install nasm
+
+## Commands
+
+- `dir`, `ls`: Show BMFS directory contents
+- `exec`: Executes the current program loaded into memory
+- `help`: Shows a list of available commands
+- `load`: Loads a program into memory for execution
+- `uname`, `ver`: Prints the OS version info
 
 
 // EOF

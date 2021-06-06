@@ -1,8 +1,10 @@
-# BareMetal OS
+# BareNaked OS
 
-Build scripts for BareMetal OS and its related utilities - The easiest way to create a BareMetal OS environment. These scripts will download and compile all of the components needed for using BareMetal OS.
+> *A fork of BareMetal OS, au naturale.*
 
-<img src="https://raw.githubusercontent.com/ReturnInfinity/BareMetal-OS/master/doc/ScreenShot.png"></img>
+64-bit assembly. Some C. Good ol-fashioned raunchy fun. Builds on Linux (shame, I know).
+
+<img src="https://raw.githubusercontent.com/ReturnInfinity/BareNaked-OS/master/doc/ScreenShot.png"></img>
 
 ## Prerequisites
 
@@ -13,34 +15,34 @@ The scripts in this repo depend on a Debian-based Linux system like [Ubuntu](htt
 - [GCC](https://gcc.gnu.org) - C compiler for building C/C++ applications.
 - [Git](https://git-scm.com) - Version control software for pulling the source code from GitHub.
 
-In Linux this can be completed with the following command:
+In a Debian-based Linux distro this can be completed with the following command:
 
 	sudo apt install nasm qemu-system-x86 gcc git
 
 
 ## Summary
 
-BareMetal OS consists of several different projects:
+BareNaked OS consists of modifications of several different, epic projects:
 
 - [Pure64](https://github.com/ReturnInfinity/Pure64) - The boot sector and software loader. Pure64 is responsible for getting the computer into a clean 64-bit state on boot up.
-- [BareMetal](https://github.com/ReturnInfinity/BareMetal) - The kernel.
+- [BareNaked](https://github.com/ReturnInfinity/BareMetal) - The kernel.
 - [Monitor](https://github.com/ReturnInfinity/BareMetal-Monitor) - A simple command line interface.
 - [BMFS](https://github.com/ReturnInfinity/BMFS) - The BareMetal File System utility.
-- [BareMetal-Demo](https://github.com/ReturnInfinity/BareMetal-Demo) - Various test/example programs.
+- [BareNaked-Demo](https://github.com/ReturnInfinity/BareMetal-Demo) - Various test/example programs.
 
 
 ## Initial configuration
 
-	git clone https://github.com/ReturnInfinity/BareMetal-OS.git
-	cd BareMetal-OS
+	git clone https://github.com/hattyhacker/BareNaked-OS.git
+	cd BareNaked-OS
 	./setup.sh
 
-`setup.sh` automatically runs the build and install scripts. Once the setup is complete you can execute the run.sh script to verify that everything installed correctly.
+`make.sh` automatically runs the build and install scripts for BareNaked OS. `setup.sh` is a leftover from the original BareMetal OS project. Once the setup is complete you can execute the run.sh script to verify that everything installed correctly.
 
 
 ## Rebuilding the source code
 
-	./build.sh
+`./build.sh` or `./make.sh`
 
 
 ## Installing the system to the disk image

@@ -13,12 +13,14 @@ start:
 	xor eax, eax
 	xor ecx, ecx
 	lodsw				; VIDEO_X
+	mov ax, 1024
 	mov [VideoX], ax		; ex: 1024
 	xor edx, edx
 	mov cl, [font_width]
 	div cx
 	mov [Screen_Cols], ax
 	lodsw				; VIDEO_Y
+	mov ax, 768
 	mov [VideoY], ax		; ex: 768
 	xor edx, edx
 	mov cl, [font_height]
@@ -50,9 +52,9 @@ start:
 	mov dword [Screen_Row_2], eax
 
 	; Set foreground/background color
-	mov eax, 0x00aa8833
+	mov eax, 0x00111111
 	mov [FG_Color], eax
-	mov eax, 0x00222222
+	mov eax, 0x00dddddd
 	mov [BG_Color], eax
 
 	call screen_clear
@@ -62,19 +64,15 @@ start:
 	mov rdi, 0x100018
 	stosq
 
-	; todo hatt
+	; Overwrites b_output to print 0-terminated strings (currently overwrites the above)
 	mov rax, output
-	mov rdi, 0x100018
+	mov rdi, 0x10018 ; Todo - Have own address (instead of b_output's) for backwards compatibility?
 	stosq
 
-	; Move cursor to bottom of screen
-	mov ax, [Screen_Rows]
-	dec ax
-	mov [Screen_Cursor_Row], ax
-
-	; todo hatt - Makes it more like other OSes, top to bottom
-	mov ax, 0
-	mov [Screen_Cursor_Row], ax
+	; Todo -  Move cursor to bottom of screen, still wanna do this?
+	;mov ax, [Screen_Rows]
+	;dec ax
+	;mov [Screen_Cursor_Row], ax
 
 	; Output system details
 	uname:
@@ -159,7 +157,7 @@ poll:
 	cmp rcx, 0			; If no characters were entered show prompt again
 	je poll
 	mov rsi, message_unknown
-	call output
+	call output_err
 	jmp poll
 
 exec:
@@ -506,6 +504,24 @@ output_char:
 
 
 ; -----------------------------------------------------------------------------
+; output_err -- Displays formatted error text
+;  IN:	RSI = message location (zero-terminated string)
+; OUT:	All registers preserved
+output_err:
+	push rax
+	mov eax, [FG_Color]
+	push rax
+	mov eax, 0x00ff1111
+	mov [FG_Color], eax
+	call output
+	pop rax
+	mov [FG_Color], eax
+	pop rax
+	ret
+; -----------------------------------------------------------------------------
+
+
+; -----------------------------------------------------------------------------
 ; pixel -- Put a pixel on the screen
 ;  IN:	EBX = Packed X & Y coordinates (YYYYXXXX)
 ;	EAX = Pixel Details (AARRGGBB)
@@ -574,7 +590,7 @@ glyph:
 	sub rax, 0x20
 	mov ecx, 12			; Font height
 	mul ecx
-	mov rsi, font_data
+	mov rsi, font_bold_data
 	add rsi, rax			; add offset to correct glyph
 
 ; Calculate pixel co-ordinates for character
@@ -916,7 +932,9 @@ string_to_int_invalid:
 ; -----------------------------------------------------------------------------
 
 
-%include 'font.inc'
+; Todo - Make multiple fonts selectable
+;%include 'font.inc'
+%include 'font_bold.inc'
 
 temp_string1: times 50 db 0
 temp_string2: times 50 db 0

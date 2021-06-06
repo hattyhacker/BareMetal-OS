@@ -12,9 +12,11 @@ unsigned char b_input(void) {
 	return chr;
 }
 
-//void b_output(const char *str, unsigned long nbr) {
-void b_output(const char *str) {
-	//asm volatile ("call *0x00100018" : : "S"(str), "c"(nbr));
+void b_output(const char *str, unsigned long nbr) {
+	asm volatile ("call *0x00100018" : : "S"(str), "c"(nbr));
+}
+
+void print(const char *str) {
 	asm volatile ("call *0x00100018" : : "S"(str));
 }
 
