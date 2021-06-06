@@ -1,10 +1,10 @@
-# BareNaked OS
+# ![](doc/icon.png) BareNaked OS
 
 > *A fork of BareMetal OS, au naturale.*
 
 64-bit assembly. Some C. Good ol-fashioned raunchy fun. Builds on Linux (shame, I know).
 
-<img src="https://raw.githubusercontent.com/ReturnInfinity/BareNaked-OS/master/doc/ScreenShot.png"></img>
+<img src="./doc/ScreenShot.png"></img>
 
 ## Prerequisites
 
@@ -24,11 +24,11 @@ In a Debian-based Linux distro this can be completed with the following command:
 
 BareNaked OS consists of modifications of several different projects:
 
-- [Pure64](https://github.com/ReturnInfinity/Pure64) - The boot sector and software loader. Pure64 is responsible for getting the computer into a clean 64-bit state on boot up.
-- [BareNaked](https://github.com/ReturnInfinity/BareMetal) - The kernel.
-- [Monitor](https://github.com/ReturnInfinity/BareMetal-Monitor) - A simple command line interface.
-- [BMFS](https://github.com/ReturnInfinity/BMFS) - The BareMetal File System utility.
-- [BareNaked-Demo](https://github.com/ReturnInfinity/BareMetal-Demo) - Various test/example programs.
+- [Pure64](src/Pure64/) - The boot sector and software loader. Pure64 is responsible for getting the computer into a clean 64-bit state on boot up.
+- [BareNaked](src/BareNaked) - The kernel.
+- [Monitor](src/BareNaked-Monitor) - A simple command line interface.
+- [BMFS](src/BMFS) - The BareMetal File System utility.
+- [BareNaked-Demo](src/BareNaked-Demo) - Various test/example programs.
 
 
 ## Initial configuration
