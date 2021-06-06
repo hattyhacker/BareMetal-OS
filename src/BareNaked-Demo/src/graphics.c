@@ -35,15 +35,29 @@ int main(void)
 	// This makes it somewhat easy to draw polys, though the last index must be an x of -1
 	int coordinates_i = 0;
 	int coordinates[100];
-	coordinates[coordinates_i++] = 300; coordinates[coordinates_i++] = 300;
-	coordinates[coordinates_i++] = 500; coordinates[coordinates_i++] = 500;
-	coordinates[coordinates_i++] = 700; coordinates[coordinates_i++] = 300;
-	coordinates[coordinates_i++] = 300; coordinates[coordinates_i++] = 200;
-	coordinates[coordinates_i++] = 700; coordinates[coordinates_i++] = 100;
-	coordinates[coordinates_i++] = 350; coordinates[coordinates_i++] = 400;
+	coordinates[coordinates_i++] = 200; coordinates[coordinates_i++] = 200;
+	coordinates[coordinates_i++] = 210; coordinates[coordinates_i++] = 220;
+	coordinates[coordinates_i++] = 190; coordinates[coordinates_i++] = 250;
+	coordinates[coordinates_i++] = 200; coordinates[coordinates_i++] = 275;
+	coordinates[coordinates_i++] = 230; coordinates[coordinates_i++] = 250;
+	coordinates[coordinates_i++] = 232; coordinates[coordinates_i++] = 230;
+	coordinates[coordinates_i++] = 200; coordinates[coordinates_i++] = 200;
 	//coordinates[coordinates_i++] = 900; coordinates[coordinates_i++] = 500;
 	coordinates[coordinates_i++] = -1;
-	drawpoly(coordinates, 0xFF,0x00,0x00);
+	drawpoly(coordinates, 0x44,0xaa,0x00);
+
+	for (coordinates_i=0; coordinates_i<100;coordinates_i++) coordinates[coordinates_i] = -1;
+	coordinates_i = 0;
+	coordinates[coordinates_i++] = 201; coordinates[coordinates_i++] = 201;
+	coordinates[coordinates_i++] = 211; coordinates[coordinates_i++] = 221;
+	coordinates[coordinates_i++] = 191; coordinates[coordinates_i++] = 250;
+	coordinates[coordinates_i++] = 201; coordinates[coordinates_i++] = 275;
+	coordinates[coordinates_i++] = 229; coordinates[coordinates_i++] = 249;
+	coordinates[coordinates_i++] = 231; coordinates[coordinates_i++] = 231;
+	coordinates[coordinates_i++] = 201; coordinates[coordinates_i++] = 201;
+	drawpoly(coordinates, 0x44,0xcc,0x00);
+	
+
 	//b_output("Polys Drawn\n",12);
 
 }

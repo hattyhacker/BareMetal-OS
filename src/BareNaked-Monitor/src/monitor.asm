@@ -128,6 +128,13 @@ poll:
 	call input
 	; TODO clear leading/trailing spaces to sanitize input
 
+	mov rsi, command_cs
+	call string_compare
+	jc cls
+	mov rsi, command_cls
+	call string_compare
+	jc cls
+
 	mov rsi, command_exec
 	call string_compare
 	jc exec
@@ -170,6 +177,13 @@ poll:
 	je poll
 	mov rsi, message_unknown
 	call output_err
+	jmp poll
+
+cls:
+	call screen_clear
+	;mov ax, [Screen_Rows]
+	mov ax, 0
+	mov [Screen_Cursor_Row], ax
 	jmp poll
 
 load_font_0:
@@ -311,6 +325,8 @@ message_ver:		db '1.0', 13, 0
 message_load:		db 'Enter file number: ', 0
 message_unknown:	db 'Unknown command', 13, 0
 message_help:		db 'Available commands:', 13, ' dir  - Show programs currently on disk', 13, ' load - Load a program to memory (you will be prompted for the program number)', 13, ' exec - Run the program currently in memory', 13, ' ver  - Show the system version', 13, 0
+command_cs:		db 'cs', 0
+command_cls:		db 'cls', 0
 command_exec:		db 'exec', 0
 command_font_0:		db 'font 0',0
 command_font_1:		db 'font 1',0
