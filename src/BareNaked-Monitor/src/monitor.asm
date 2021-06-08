@@ -80,45 +80,7 @@ start:
 
 	; Output system details
 	uname:
-	mov rsi, osname	; todo hatt
-	call output
-	mov rsi, newline
-	call output
-
-	mov rsi, cpumsg
-	call output
-	xor eax, eax
-	mov rsi, 0x5012
-	lodsw
-	mov rdi, temp_string
-	mov rsi, rdi
-	call string_from_int
-	call output
-	mov rsi, coresmsg
-	call output
-	mov rsi, 0x5010
-	lodsw
-	mov rdi, temp_string
-	mov rsi, rdi
-	call string_from_int
-	call output
-	mov rsi, mhzmsg
-	call output
-	mov rsi, memmsg
-	call output
-	mov rsi, 0x5020
-	lodsd
-	mov rdi, temp_string
-	mov rsi, rdi
-	call string_from_int
-	call output
-	mov rsi, mibmsg
-	call output
-	mov rsi, closebracketmsg
-	call output
-	mov rsi, newline
-	call output
-	call output
+	call print_sys_info
 
 poll:
 	mov rsi, prompt
@@ -243,13 +205,54 @@ dir_next:
 dir_end:
 	jmp poll
 
-print_ver:
+print_sys_info:
 	mov rsi, osname
 	call output
 	mov rsi, space
 	call output
 	mov rsi, message_ver
 	call output
+	mov rsi, newline
+	
+	mov rsi, cpumsg
+	call output
+	xor eax, eax
+	mov rsi, 0x5012
+	lodsw
+	mov rdi, temp_string
+	mov rsi, rdi
+	call string_from_int
+	call output
+	mov rsi, coresmsg
+	call output
+	mov rsi, 0x5010
+	lodsw
+	mov rdi, temp_string
+	mov rsi, rdi
+	call string_from_int
+	call output
+	mov rsi, mhzmsg
+	call output
+	mov rsi, memmsg
+	call output
+	mov rsi, 0x5020
+	lodsd
+	mov rdi, temp_string
+	mov rsi, rdi
+	call string_from_int
+	call output
+	mov rsi, mibmsg
+	call output
+	mov rsi, closebracketmsg
+	call output
+	mov rsi, newline
+	call output
+	call output
+
+	ret
+
+print_ver:
+	call print_sys_info
 	jmp poll
 
 load:
